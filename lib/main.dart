@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/screens/Home.dart';
 
-import 'screens/Home.dart';
 
 
 
@@ -11,7 +9,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
 
   runApp(const MyApp());
 
@@ -98,7 +95,7 @@ class _SplashPageState extends State<SplashPage> {
 
   initialization() async {
 
-    await Future.delayed(const Duration(seconds: 1)); // Retraso de 2 segundos antes de la navegación
+    await Future.delayed(const Duration(seconds: 1));
 
     if(MediaQuery.of(context).size.width > 450){
 

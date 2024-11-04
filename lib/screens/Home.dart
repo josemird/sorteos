@@ -9,7 +9,6 @@ import 'package:shoppy3/widget/loading.dart';
 import 'package:shoppy3/widget/textFormField.dart';
 
 class HomePage extends StatefulWidget {
-
   const HomePage({super.key});
 
   @override
@@ -17,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   bool cargando = false;
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController participantesController = TextEditingController();
@@ -24,18 +24,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
 
       backgroundColor: Colors.white,
       appBar: CustomAppBar(),
-
       body: Loading(
 
         loading: cargando,
 
         child: ListView(
 
-          padding: EdgeInsets.only(left: 400, right: 400, top: 50, bottom: 50),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1, vertical: 50),
 
           children: [
 
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                 TextFormFieldCustom(
 
                   labelText: "PARTICIPANTES\n(Separar con saltos de línea)",
-                  width: 300,
+                  width: screenWidth * 0.45,
                   minLines: 7,
                   maxLines: 7,
                   onChanged: (value) => participantesController.text = value,
@@ -88,14 +89,12 @@ class _HomePageState extends State<HomePage> {
 
                     List<String> participantes = participantesController.text.split(RegExp(r',|\n'));
                     goToClear(
-
                       context,
                       GenerarSorteoPage(
-
                         titulo: tituloController.text,
                         participantes: participantes,
-
                       ),
+
                     );
 
                   },

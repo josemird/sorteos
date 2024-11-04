@@ -3,32 +3,36 @@ import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/config/styles/text_styles.dart';
 import 'package:shoppy3/function/mostrar_ganador.dart';
 import 'package:shoppy3/widget/button.dart';
-import 'package:shoppy3/widget/customAppBar.dart';
 import 'package:shoppy3/widget/customBackAppBar.dart';
 import 'package:shoppy3/widget/espacio.dart';
 
-
 class GenerarSorteoPage extends StatelessWidget {
+
   final String titulo;
   final List<String> participantes;
 
   const GenerarSorteoPage({
+
     super.key,
     required this.titulo,
     required this.participantes,
+
   });
 
   @override
   Widget build(BuildContext context) {
 
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
 
       appBar: CustomBackAppBar(),
+
       backgroundColor: Colors.white,
 
       body: Padding(
 
-        padding: const EdgeInsets.only(left: 400, right: 400, top: 50, bottom: 50),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1, vertical: 50),
 
         child: Column(
 
@@ -64,12 +68,11 @@ class GenerarSorteoPage extends StatelessWidget {
 
                         Container(
 
-                          width: 450,
+                          width: screenWidth * 0.7,
                           padding: EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
                             border: Border.all(color: COLOR_ACCENT, width: 1.5),
                             borderRadius: BorderRadius.circular(5.0),
-
                           ),
                           height: 210,
                           child: SingleChildScrollView(
@@ -120,6 +123,7 @@ class GenerarSorteoPage extends StatelessWidget {
                 mostrarGanador(context, participantes);
 
               },
+
             ),
           ],
         ),
