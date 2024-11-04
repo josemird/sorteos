@@ -87,7 +87,7 @@ class GenerarSorteoPage extends StatelessWidget {
 
                                   ),
 
-                                  if (i < participantes.length - 1 && i < 9)
+                                  if (i < participantes.length && i < 10)
                                     Container(
 
                                       height: 1,

@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
 
                 TextFormFieldCustom(
 
-                  labelText: "PARTICIPANTES\n(Separar por comas o saltos de línea)",
+                  labelText: "PARTICIPANTES\n(Separar con saltos de línea)",
                   width: 300,
                   minLines: 7,
                   maxLines: 7,
