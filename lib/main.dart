@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: theme(),
-      title: 'Events',
+      title: 'Sorteos',
       home: const SplashPage(),
     );
 
