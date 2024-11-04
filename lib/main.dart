@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoppy3/config/imports.dart';
-import 'package:shoppy3/screens/Sorteos.dart';
+import 'package:shoppy3/screens/Home.dart';
 
 import 'screens/Home.dart';
 
@@ -103,13 +103,13 @@ class _SplashPageState extends State<SplashPage> {
     if(MediaQuery.of(context).size.width > 450){
 
       if(mounted){
-        goToClear(context, const SorteosPage());
+        goToClear(context, const HomePage());
       }
 
     }else{
 
       if(mounted){
-        goToClear(context, const SorteosPage());
+        goToClear(context, const HomePage());
       }
 
     }

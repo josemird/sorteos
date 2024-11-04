@@ -4,15 +4,15 @@ import 'package:shoppy3/config/styles/text_styles.dart';
 import 'package:shoppy3/function/mostrar_ganador.dart';
 import 'package:shoppy3/widget/button.dart';
 import 'package:shoppy3/widget/customAppBar.dart';
+import 'package:shoppy3/widget/customBackAppBar.dart';
 import 'package:shoppy3/widget/espacio.dart';
-import 'package:shoppy3/function/mostrar_ganador.dart';
 
 
-class GenerarSorteosPage extends StatelessWidget {
+class GenerarSorteoPage extends StatelessWidget {
   final String titulo;
   final List<String> participantes;
 
-  const GenerarSorteosPage({
+  const GenerarSorteoPage({
     super.key,
     required this.titulo,
     required this.participantes,
@@ -23,7 +23,7 @@ class GenerarSorteosPage extends StatelessWidget {
 
     return Scaffold(
 
-      appBar: CustomAppBar(),
+      appBar: CustomBackAppBar(),
       backgroundColor: Colors.white,
 
       body: Padding(
