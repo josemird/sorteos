@@ -5,6 +5,7 @@ class TextFormFieldCustom extends StatefulWidget {
   final String labelText;
   final String hintText;
   final bool password;
+  final bool isRequired; // Nueva propiedad
   final Color? colorBackground;
   final Function(String)? onChanged;
   final double? width;
@@ -18,6 +19,7 @@ class TextFormFieldCustom extends StatefulWidget {
     this.labelText = '',
     this.hintText = '',
     this.password = false,
+    this.isRequired = false,
     this.colorBackground = Colors.transparent,
     this.onChanged,
     this.width = 250.0,
@@ -46,7 +48,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
         minLines: widget.minLines,
         maxLines: widget.maxLines ?? (widget.password ? 1 : null),
         decoration: InputDecoration(
-          labelText: widget.labelText,
+          labelText: widget.isRequired ? '${widget.labelText} *' : widget.labelText, // Añadir asterisco
           hintText: widget.hintText,
           alignLabelWithHint: true,
           contentPadding: EdgeInsets.all(10),

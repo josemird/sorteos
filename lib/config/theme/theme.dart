@@ -9,9 +9,9 @@ const Color COLOR_BACKGROUND = Color(0xffF7F8FD);
 const Color COLOR_BACKGROUND_SECONDARY = Color(0xffFFFFFF);
 
 ///ACCENT
-const Color COLOR_ACCENT = Color(0xffD90216);
-const Color COLOR_ACCENT_PRESSED = Color(0xffbc0215);
-const Color COLOR_ACCENT_HOVER = Color(0xff9a0310);
+const Color COLOR_ACCENT = Color(0xff7102d9);
+const Color COLOR_ACCENT_PRESSED = Color(0xff5903aa);
+const Color COLOR_ACCENT_HOVER = Color(0xff39016c);
 
 const Color COLOR_ACCENT_SECONDARY = Color(0xFFF4BA26);
 

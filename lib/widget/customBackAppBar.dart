@@ -3,7 +3,7 @@ import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/config/styles/text_styles.dart';
 import 'package:shoppy3/screens/Home.dart';
 
-class CustomBackAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomBackAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final Color backgroundColor;
   final List<Widget>? actions;
@@ -20,39 +20,73 @@ class CustomBackAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: padding!,
-      child: AppBar(
-        title: Text(
-          title,
-          style: estiloTitulo().copyWith(color: textColor, letterSpacing: 3),
-        ),
-        toolbarHeight: 75,
-        backgroundColor: backgroundColor,
-        centerTitle: true,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 20.0,
-          ),
-          onPressed: () {
-            goToClear(
-
-                context,
-                HomePage(),
-
-            );
-
-            },
-        ),
-        actions: actions,
-      ),
-    );
-  }
+  State<CustomBackAppBar> createState() => _CustomBackAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(60.0);
+}
+
+class _CustomBackAppBarState extends State<CustomBackAppBar> {
+  double _letterSpacing = 3;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Padding(
+
+      padding: widget.padding!,
+
+      child: AppBar(
+
+        title: MouseRegion(
+
+          onEnter: (_) => setState(() => _letterSpacing = 6),
+          onExit: (_) => setState(() => _letterSpacing = 3),
+          child: AnimatedDefaultTextStyle(
+
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            style: estiloTitulo().copyWith(
+              color: widget.textColor,
+              letterSpacing: _letterSpacing,
+
+            ),
+
+            child: Text(widget.title),
+
+          ),
+
+        ),
+
+        toolbarHeight: 75,
+        backgroundColor: widget.backgroundColor,
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+
+          icon: Icon(
+
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 20.0,
+
+          ),
+
+          onPressed: () {
+
+            goToClear(
+
+              context,
+              HomePage(),
+
+            );
+
+          },
+        ),
+
+        actions: widget.actions,
+
+      ),
+    );
+  }
 }

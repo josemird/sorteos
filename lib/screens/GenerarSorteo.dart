@@ -21,6 +21,7 @@ class GenerarSorteoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
     final participantesConContador = obtenerListaConContador(participantes);
 
     return Scaffold(
@@ -42,6 +43,7 @@ class GenerarSorteoPage extends StatelessWidget {
                 children: [
 
                   Padding(
+
                     padding: const EdgeInsets.all(20.0),
 
                     child: Column(
@@ -64,13 +66,13 @@ class GenerarSorteoPage extends StatelessWidget {
 
                         Container(
 
-                          width: screenWidth * 0.7,
+                          width: screenWidth * 0.55,
                           padding: EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
                             border: Border.all(color: COLOR_ACCENT, width: 1.5),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
-                          height: 210,
+                          height: 250,
 
                           child: SingleChildScrollView(
 
@@ -80,17 +82,26 @@ class GenerarSorteoPage extends StatelessWidget {
 
                                 for (int i = 0; i < participantesConContador.length; i++) ...[
                                   RichText(
+
                                     textAlign: TextAlign.center,
+
                                     text: TextSpan(
+
                                       children: [
+
                                         TextSpan(
+
                                           text: participantesConContador[i].split(' x')[0],
                                           style: TextStyle(fontSize: 16, color: COLOR_TEXT),
+
                                         ),
+
                                         if (int.parse(participantesConContador[i].split(' x')[1]) > 1)
                                           TextSpan(
+
                                             text: ' x${participantesConContador[i].split(' x')[1]}',
                                             style: TextStyle(fontSize: 16, color: COLOR_ACCENT),
+
                                           ),
                                       ],
                                     ),
@@ -98,9 +109,11 @@ class GenerarSorteoPage extends StatelessWidget {
 
                                   if (i < participantesConContador.length - 1)
                                     Container(
+
                                       height: 1,
                                       color: Colors.grey[300],
                                       margin: EdgeInsets.symmetric(vertical: 8.0),
+
                                     ),
                                 ],
                               ],
@@ -112,21 +125,24 @@ class GenerarSorteoPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
 
-            Espacio(ESPACIO_MEDIANO),
+            ),
 
             ButtonCustom(
 
-              height: 30,
+              height: 37,
               width: 100,
+              colorHover: COLOR_ACCENT_HOVER,
+              colorPressed: COLOR_ACCENT_PRESSED,
               colorText: Colors.white,
               texto: "Ganador",
+
               onPressed: () {
 
                 mostrarGanador(context, participantes);
 
               },
+
             ),
           ],
         ),
@@ -141,14 +157,30 @@ class GenerarSorteoPage extends StatelessWidget {
     for (var participante in participantes) {
 
       if (participante.trim().isNotEmpty) {
+
         contador[participante] = (contador[participante] ?? 0) + 1;
+
       }
 
     }
 
     final participantesOrdenados = contador.keys.toList()
-      ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+      ..sort((a, b) {
+
+        int comparison = contador[b]!.compareTo(contador[a]!);
+
+        if (comparison == 0) {
+
+          return a.toLowerCase().compareTo(b.toLowerCase());
+
+        }
+
+        return comparison;
+
+      });
+
     return participantesOrdenados.map((nombre) => "$nombre x${contador[nombre]}").toList();
+
   }
 
 }

@@ -1,3 +1,4 @@
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/config/styles/text_styles.dart';
@@ -7,6 +8,7 @@ import 'package:shoppy3/widget/customAppBar.dart';
 import 'package:shoppy3/widget/espacio.dart';
 import 'package:shoppy3/widget/loading.dart';
 import 'package:shoppy3/widget/textFormField.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +22,9 @@ class _HomePageState extends State<HomePage> {
   bool cargando = false;
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController participantesController = TextEditingController();
+  String? nombreArchivo;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 
               children: [
 
-                Espacio(ESPACIO_GRANDE),
+                Espacio(ESPACIO_MEDIANO),
 
                 TextoCustom("Sorteo por Nombres al Azar", fontSize: 25, fontWeight: FontWeight.w800),
 
@@ -65,7 +70,7 @@ class _HomePageState extends State<HomePage> {
 
                 ),
 
-                Espacio(ESPACIO_MEDIANO),
+                Espacio(ESPACIO_PEQUENO),
 
                 TextFormFieldCustom(
 
@@ -77,12 +82,68 @@ class _HomePageState extends State<HomePage> {
 
                 ),
 
-                Espacio(ESPACIO_PEQUENO),
+                Espacio(ESPACIO_EXTRAPEQUENO),
+                if (nombreArchivo != null)
+                  Row(
+
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+
+                      Text(
+
+                        'Cargado: $nombreArchivo',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: COLOR_TEXT),
+
+                      ),
+
+                      Espacio(ESPACIO_EXTRAPEQUENO),
+
+                      IconButton(
+
+                        icon: Icon(Icons.close, color: Colors.red),
+
+                        onPressed: () {
+
+                          setState(() {
+                            participantesController.clear();
+                            nombreArchivo = null;
+
+                          });
+
+                        },
+                      ),
+                    ],
+                  ),
 
                 ButtonCustom(
 
-                  height: 25,
+                  height: 20,
+                  width: 140,
+                  colorBackground: COLOR_BACKGROUND,
+                  colorText: COLOR_ACCENT,
+                  colorHover: COLOR_BACKGROUND_SECONDARY,
+                  colorPressed: COLOR_BACKGROUND_SECONDARY,
+                  texto: "Cargar Archivo",
+
+                  onPressed: (){
+
+                    pickFile();
+
+                  }
+
+                ),
+
+
+                Espacio(ESPACIO_MEDIANO),
+
+                ButtonCustom(
+
+                  height: 37,
                   width: 100,
+                  colorHover: COLOR_ACCENT_HOVER,
+                  colorPressed: COLOR_ACCENT_PRESSED,
                   colorText: Colors.white,
                   texto: "Comenzar",
                   onPressed: () {
@@ -105,6 +166,41 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future<void> pickFile() async {
+
+    if (nombreArchivo != null) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ya se ha cargado un archivo. Por favor, quítalo para cargar uno nuevo.')),
+      );
+
+      return;
+
+    }
+
+    final input = html.FileUploadInputElement();
+    input.accept = '.txt';
+    input.click();
+
+    input.onChange.listen((e) async {
+
+      final reader = html.FileReader();
+      reader.readAsText(input.files![0]);
+      reader.onLoadEnd.listen((e) {
+
+        final fileContent = reader.result as String;
+
+        List<String> nuevosParticipantes = fileContent.split('\n').map((line) => line.trim()).toList();
+        setState(() {
+
+          participantesController.text = nuevosParticipantes.join('\n');
+          nombreArchivo = input.files![0].name;
+
+        });
+      });
+    });
   }
 
 }
