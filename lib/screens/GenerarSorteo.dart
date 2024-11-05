@@ -56,7 +56,7 @@ class GenerarSorteoPage extends StatelessWidget {
 
                         Espacio(ESPACIO_PEQUENO),
 
-                        TextoCustom(titulo, color: COLOR_ACCENT, fontWeight: FontWeight.bold, fontSize: 18),
+                        TextoCustom(titulo, color: COLOR_ACCENT, fontWeight: FontWeight.bold, fontSize: 20),
 
                         Espacio(ESPACIO_MEDIANO),
 
