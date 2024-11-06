@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/config/styles/text_styles.dart';
-import 'package:shoppy3/function/mostrar_ganador.dart';
+import 'package:shoppy3/screens/Ganador.dart';
 import 'package:shoppy3/widget/button.dart';
 import 'package:shoppy3/widget/customBackAppBar.dart';
 import 'package:shoppy3/widget/espacio.dart';
