@@ -54,11 +54,22 @@ class _GanadorPageState extends State<GanadorPage> {
 
             Espacio(ESPACIO_PEQUENO),
 
-            ...widget.suplentes.map((suplente) => Text(
-              suplente,
-              style: TextStyle(color: Colors.deepPurpleAccent[100], fontSize: 18),
-              textAlign: TextAlign.center,
-            )).toList(),
+            Container(
+              height: 210,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...widget.suplentes.map((suplente) => Text(
+                      suplente,
+                      style: TextStyle(color: Colors.deepPurpleAccent[100], fontSize: 18),
+                      textAlign: TextAlign.center,
+                    )).toList(),
+                  ],
+                ),
+              ),
+            ),
+
+
 
             Espacio(ESPACIO_GRANDE),
 
