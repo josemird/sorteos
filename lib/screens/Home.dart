@@ -7,6 +7,7 @@ import 'package:shoppy3/widget/button.dart';
 import 'package:shoppy3/widget/customAppBar.dart';
 import 'package:shoppy3/widget/espacio.dart';
 import 'package:shoppy3/widget/loading.dart';
+import 'package:shoppy3/widget/opcionesAvanzadas.dart';
 import 'package:shoppy3/widget/textFormField.dart';
 
 
@@ -23,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController participantesController = TextEditingController();
   String? nombreArchivo;
+  bool checkSuplentes = true;
+
 
 
   // Variables para los nuevos campos
@@ -67,94 +70,33 @@ class _HomePageState extends State<HomePage> {
 
                 Espacio(ESPACIO_PEQUENO),
 
-                Container(
-
-                  width: 250,
-                  child: ExpansionTile(
-
-                    title: Text( "Opciones avanzadas",
-                        style: TextStyle(
-                            fontSize: 13,
-                        ),
-                    ),
-
-                    children: [
-
-                      Column(
-
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-
-                        children: [
-
-                          Row(
-
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-
-                            children: [
-
-                              Text("Suplentes"),
-
-                              Row(
-
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-
-                                children: [
-                                  IconButton(
-
-                                    icon: Icon(Icons.remove),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (suplentes > 0) suplentes--;
-                                      });
-                                    },
-
-                                  ),
-                                  Text('$suplentes'),
-                                  IconButton(
-
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        suplentes++;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-
-                          Espacio(ESPACIO_PEQUENO),
-
-                          Row(
-
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-
-                            children: [
-
-                              Text("Top 3"),
-
-                              Espacio(ESPACIO_PEQUENO),
-
-                              Switch(
-                                value: habilitarTop,
-                                onChanged: (value) {
-                                  setState(() {
-                                    habilitarTop = value;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                OpcionesAvanzadasWidget(
+                  suplentes: suplentes,
+                  habilitarTop: habilitarTop,
+                  checkSuplentes: checkSuplentes,
+                  onSuplentesChanged: (newSuplentes) {
+                    setState(() {
+                      suplentes = newSuplentes;
+                    });
+                  },
+                  onTopChanged: (value) {
+                    setState(() {
+                      habilitarTop = value;
+                    });
+                  },
+                  onCheckSuplentesChanged: (value) {
+                    setState(() {
+                      // Si value es true, se pone suplentes a 0, de lo contrario se mantiene el valor actual
+                      checkSuplentes = value ?? false;  // Aseguramos que el valor no sea nulo, si es nulo lo ponemos como falso
+                      if (checkSuplentes) {
+                        suplentes = 0;
+                      } else {
+                        suplentes = 10;  // Asigna el valor por defecto de suplentes
+                      }
+                    });
+                  },
                 ),
+
 
                 Espacio(ESPACIO_PEQUENO),
 
@@ -292,6 +234,15 @@ class _HomePageState extends State<HomePage> {
           nombreArchivo = input.files![0].name;
         });
       });
+    });
+  }
+
+  void onCheckSuplentesChanged(bool value) {
+    setState(() {
+      checkSuplentes = value;
+      if (checkSuplentes) {
+        suplentes = 0; // Si está activado, se fija suplentes a 0
+      }
     });
   }
 

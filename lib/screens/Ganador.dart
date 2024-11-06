@@ -46,30 +46,33 @@ class _GanadorPageState extends State<GanadorPage> {
 
             Espacio(ESPACIO_GRANDE),
 
-            Text(
-              "Suplentes:",
-              style: TextStyle(color: Colors.white, fontSize: 24),
-              textAlign: TextAlign.center,
-            ),
+            if (widget.suplentes.isNotEmpty)
+              Column(
+                children: [
+                  Text(
+                    "Suplentes:",
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                  Espacio(ESPACIO_PEQUENO),
+                ],
+              ),
 
-            Espacio(ESPACIO_PEQUENO),
-
-            Container(
-              height: 210,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ...widget.suplentes.map((suplente) => Text(
-                      suplente,
-                      style: TextStyle(color: Colors.deepPurpleAccent[100], fontSize: 18),
-                      textAlign: TextAlign.center,
-                    )).toList(),
-                  ],
+            if (widget.suplentes.isNotEmpty)
+              Container(
+                height: 210,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ...widget.suplentes.map((suplente) => Text(
+                        suplente,
+                        style: TextStyle(color: Colors.deepPurpleAccent[100], fontSize: 18),
+                        textAlign: TextAlign.center,
+                      )).toList(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-
 
             Espacio(ESPACIO_GRANDE),
 
