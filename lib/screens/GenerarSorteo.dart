@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/config/styles/text_styles.dart';
+import 'package:shoppy3/function/mostrarGanador.dart';
 import 'package:shoppy3/screens/Ganador.dart';
 import 'package:shoppy3/widget/button.dart';
 import 'package:shoppy3/widget/customBackAppBar.dart';
@@ -10,11 +11,14 @@ import 'package:shoppy3/widget/espacio.dart';
 class GenerarSorteoPage extends StatelessWidget {
   final String titulo;
   final List<String> participantes;
+  final int suplentes;
+
 
   const GenerarSorteoPage({
     super.key,
     required this.titulo,
     required this.participantes,
+    required this.suplentes,
   });
 
 
@@ -139,7 +143,7 @@ class GenerarSorteoPage extends StatelessWidget {
 
               onPressed: () {
 
-                mostrarGanador(context, participantes);
+                mostrarGanador(context, participantes, suplentes);
 
               },
 

@@ -25,6 +25,11 @@ class _HomePageState extends State<HomePage> {
   String? nombreArchivo;
 
 
+  // Variables para los nuevos campos
+  int suplentes = 10;
+  bool habilitarTop = true;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +65,98 @@ class _HomePageState extends State<HomePage> {
 
                 TextoBody("Escoge un ganador al azar de una lista de nombres con nuestra App", color: COLOR_ACCENT),
 
-                Espacio(ESPACIO_MEDIANO),
+                Espacio(ESPACIO_PEQUENO),
+
+                Container(
+
+                  width: 250,
+                  child: ExpansionTile(
+
+                    title: Text( "Opciones avanzadas",
+                        style: TextStyle(
+                            fontSize: 13,
+                        ),
+                    ),
+
+                    children: [
+
+                      Column(
+
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+
+                        children: [
+
+                          Row(
+
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+
+                            children: [
+
+                              Text("Suplentes"),
+
+                              Row(
+
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  IconButton(
+
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (suplentes > 0) suplentes--;
+                                      });
+                                    },
+
+                                  ),
+                                  Text('$suplentes'),
+                                  IconButton(
+
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        suplentes++;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          Espacio(ESPACIO_PEQUENO),
+
+                          Row(
+
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+
+                            children: [
+
+                              Text("Top 3"),
+
+                              Espacio(ESPACIO_PEQUENO),
+
+                              Switch(
+                                value: habilitarTop,
+                                onChanged: (value) {
+                                  setState(() {
+                                    habilitarTop = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                Espacio(ESPACIO_PEQUENO),
 
                 TextFormFieldCustom(
 
@@ -78,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                   width: screenWidth * 0.45,
                   minLines: 7,
                   maxLines: 7,
+                  controller: participantesController,
                   onChanged: (value) => participantesController.text = value,
 
                 ),
@@ -136,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                 ),
 
 
-                Espacio(ESPACIO_MEDIANO),
+                Espacio(ESPACIO_PEQUENO),
 
                 ButtonCustom(
 
@@ -154,6 +251,7 @@ class _HomePageState extends State<HomePage> {
                       GenerarSorteoPage(
                         titulo: tituloController.text,
                         participantes: participantes,
+                        suplentes: suplentes,
                       ),
 
                     );
@@ -169,15 +267,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> pickFile() async {
-
     if (nombreArchivo != null) {
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Ya se ha cargado un archivo. Por favor, quítalo para cargar uno nuevo.')),
       );
-
       return;
-
     }
 
     final input = html.FileUploadInputElement();
@@ -185,22 +279,21 @@ class _HomePageState extends State<HomePage> {
     input.click();
 
     input.onChange.listen((e) async {
-
       final reader = html.FileReader();
       reader.readAsText(input.files![0]);
-      reader.onLoadEnd.listen((e) {
 
+      reader.onLoadEnd.listen((e) {
         final fileContent = reader.result as String;
 
         List<String> nuevosParticipantes = fileContent.split('\n').map((line) => line.trim()).toList();
-        setState(() {
 
+        setState(() {
           participantesController.text = nuevosParticipantes.join('\n');
           nombreArchivo = input.files![0].name;
-
         });
       });
     });
   }
+
 
 }

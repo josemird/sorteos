@@ -13,6 +13,7 @@ class TextFormFieldCustom extends StatefulWidget {
   final int? minLines;
   final int? maxLines;
   final BorderRadius? borderRadius;
+  final TextEditingController? controller;
 
   const TextFormFieldCustom({
     super.key,
@@ -26,7 +27,8 @@ class TextFormFieldCustom extends StatefulWidget {
     this.height,
     this.minLines,
     this.maxLines,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)), // Valor por defecto
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.controller,
   });
 
   @override
