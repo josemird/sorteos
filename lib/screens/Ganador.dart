@@ -7,6 +7,8 @@ import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/widget/button.dart';
 import 'package:shoppy3/widget/countdown.dart';
 import 'package:shoppy3/widget/espacio.dart';
+import 'package:confetti/confetti.dart';
+
 
 
 class GanadorPage extends StatefulWidget {
@@ -34,12 +36,14 @@ class _GanadorPageState extends State<GanadorPage> {
   bool mostrarGanadores = false;
   int currentTopIndex = 0;
   late Timer _topTimer;
+  late ConfettiController _confettiController;
 
   final CountDownController _countDownController = CountDownController();
 
   @override
   void initState() {
     super.initState();
+    _confettiController = ConfettiController(duration: const Duration(seconds: 10));
 
     if (widget.habilitarTop) {
       _topTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -63,29 +67,28 @@ class _GanadorPageState extends State<GanadorPage> {
   @override
   void dispose() {
     _topTimer.cancel();
+    _confettiController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.grey[900],
-
-      body: Center(
-
-        child: mostrarTop && widget.habilitarTop
-          ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Top 3 Participantes",
-                style: const TextStyle(color: Colors.white, fontSize: 23),
-              ),
-
-              Espacio(ESPACIO_MEDIANO),
-
-              for (int i = 0; i <= currentTopIndex; i++)
+      body: Stack(
+        children: [
+          // Contenido normal (Texto, Suplentes, etc.)
+          Center(
+            child: mostrarTop && widget.habilitarTop
+                ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Top 3 Participantes",
+                  style: const TextStyle(color: Colors.white, fontSize: 23),
+                ),
+                Espacio(ESPACIO_MEDIANO),
+                for (int i = 0; i <= currentTopIndex; i++)
                   Column(
                     children: [
                       AnimateText(
@@ -94,13 +97,10 @@ class _GanadorPageState extends State<GanadorPage> {
                             color: Colors.deepPurpleAccent[100], fontSize: 30),
                         type: AnimateTextType.bottomToTop,
                       ),
-
-                    Espacio(ESPACIO_PEQUENO),
+                      Espacio(ESPACIO_PEQUENO),
                     ],
                   ),
-
                 Espacio(ESPACIO_GRANDE),
-
                 if (currentTopIndex == widget.top.length - 1)
                   ButtonCustom(
                     height: 37,
@@ -110,20 +110,17 @@ class _GanadorPageState extends State<GanadorPage> {
                     colorText: Colors.white,
                     texto: "Continuar",
                     onPressed: () {
-
                       setState(() {
                         mostrarTop = false;
                         mostrarCuentaAtras = true;
                       });
                       _countDownController.start();
-
                     },
                   ),
               ],
             )
-
-            : mostrarCuentaAtras
-            ? Column(
+                : mostrarCuentaAtras
+                ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CountdownWidget(
@@ -134,7 +131,9 @@ class _GanadorPageState extends State<GanadorPage> {
                   backgroundColor: Colors.purple[500]!,
                   strokeWidth: 20.0,
                   textStyle: TextStyle(
-                      fontSize: 33.0, color: Colors.white, fontWeight: FontWeight.bold),
+                      fontSize: 33.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                   isReverse: true,
                   isReverseAnimation: true,
                   onComplete: () {
@@ -142,14 +141,13 @@ class _GanadorPageState extends State<GanadorPage> {
                       mostrarCuentaAtras = false;
                       mostrarGanadores = true;
                     });
+                    _confettiController.play();
                   },
-                )
-
+                ),
               ],
             )
-
-            : mostrarGanadores
-            ? Column(
+                : mostrarGanadores
+                ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -157,9 +155,7 @@ class _GanadorPageState extends State<GanadorPage> {
                   style: TextStyle(color: Colors.white, fontSize: 23),
                   textAlign: TextAlign.center,
                 ),
-
                 Espacio(ESPACIO_MEDIANO),
-
                 AnimateText(
                   widget.ganador,
                   style: TextStyle(
@@ -171,9 +167,7 @@ class _GanadorPageState extends State<GanadorPage> {
                   speed: AnimateTextSpeed.verySlow,
                   isRepeat: true,
                 ),
-
                 Espacio(ESPACIO_GRANDE),
-
                 if (mostrarSuplentes && widget.suplentes.isNotEmpty)
                   Column(
                     children: [
@@ -194,8 +188,7 @@ class _GanadorPageState extends State<GanadorPage> {
                                   .map((suplente) => Text(
                                 suplente,
                                 style: TextStyle(
-                                    color: Colors
-                                        .deepPurpleAccent[100],
+                                    color: Colors.deepPurpleAccent[100],
                                     fontSize: 24),
                                 textAlign: TextAlign.center,
                               ))
@@ -205,26 +198,60 @@ class _GanadorPageState extends State<GanadorPage> {
                         ),
                       ),
                     ],
-              ),
+                  ),
+                Espacio(ESPACIO_GRANDE),
+                ButtonCustom(
+                  height: 37,
+                  width: 100,
+                  colorHover: COLOR_ACCENT_HOVER,
+                  colorPressed: COLOR_ACCENT_PRESSED,
+                  colorText: Colors.white,
+                  texto: "Cerrar",
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            )
+                : Container(),
+          ),
 
-              Espacio(ESPACIO_GRANDE),
+          // Confetti sobre el contenido
+          Align(
+            alignment: Alignment.topLeft,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              numberOfParticles: 30,
+              colors: [
+                Colors.red.withOpacity(0.7),
+                COLOR_ACCENT_SECONDARY.withOpacity(0.7),
+                COLOR_ACCENT.withOpacity(0.7),
+              ],
+              gravity: 0.15,
+              blastDirection: 1.57,
+            ),
+          ),
 
-              ButtonCustom(
-                height: 37,
-                width: 100,
-                colorHover: COLOR_ACCENT_HOVER,
-                colorPressed: COLOR_ACCENT_PRESSED,
-                colorText: Colors.white,
-                texto: "Cerrar",
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          )
-        : Container(),
+          Align(
+            alignment: Alignment.topRight,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              numberOfParticles: 30,
+              colors: [
+                Colors.red.withOpacity(0.7),
+                COLOR_ACCENT_SECONDARY.withOpacity(0.7),
+                COLOR_ACCENT.withOpacity(0.7),
+              ],
+              gravity: 0.15,
+              blastDirection: 1.57,
+            ),
+          ),
+
+        ],
       ),
     );
   }
-
 }
+
