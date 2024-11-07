@@ -126,15 +126,8 @@ class _GanadorPageState extends State<GanadorPage> {
             ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-                Text(
-                  "Cuenta Atrás:",
-                  style: TextStyle(color: Colors.white, fontSize: 23),
-                ),
-                Espacio(ESPACIO_MEDIANO),
-
                 CountdownWidget(
-                  duration: 10,
+                  duration: 5,
                   controller: _countDownController,
                   ringColor: Colors.grey[300]!,
                   fillColor: Colors.purpleAccent[100]!,
