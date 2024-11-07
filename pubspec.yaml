@@ -56,5 +56,6 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/sounds/celebration.mp3
 
 
