@@ -127,7 +127,7 @@ class _GanadorPageState extends State<GanadorPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CountdownWidget(
-                  duration: 5,
+                  duration: 6,
                   controller: _countDownController,
                   ringColor: Colors.grey[300]!,
                   fillColor: Colors.purpleAccent[100]!,
@@ -168,6 +168,8 @@ class _GanadorPageState extends State<GanadorPage> {
                       fontWeight: FontWeight.bold),
                   withScale: true,
                   type: AnimateTextType.bottomToTop,
+                  speed: AnimateTextSpeed.verySlow,
+                  isRepeat: true,
                 ),
 
                 Espacio(ESPACIO_GRANDE),
