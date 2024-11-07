@@ -3,7 +3,8 @@ import 'package:shoppy3/config/imports.dart';
 import 'package:shoppy3/screens/Ganador.dart';
 
 
-void mostrarGanador(BuildContext context, List<String> participantes, int suplentes) {
+///GANADORES Y SUPLENTES
+void mostrarGanador(BuildContext context, List<String> participantes, int suplentes, bool habilitarTop) {
   if (participantes.isEmpty) return;
 
   /// Obtener participaciones
@@ -44,11 +45,18 @@ void mostrarGanador(BuildContext context, List<String> participantes, int suplen
     }
   }
 
+  // Calcular top 3
+  final top = contador.keys.toList()
+    ..sort((a, b) => contador[b]!.compareTo(contador[a]!));
+  final top3 = top.take(3).toList();
+
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => GanadorPage(
         ganador: ganador,
         suplentes: suplentesGenerados,
+        top: top3,
+        habilitarTop: habilitarTop,
       ),
     ),
   );

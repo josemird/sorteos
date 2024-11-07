@@ -32,6 +32,9 @@ dependencies:
 
   #PERSONALIZACION
   liquid_pull_to_refresh: ^3.0.1
+  animate_text: ^1.0.0
+  animate_do: ^2.0.0
+  circular_countdown_timer: ^0.2.4
 
   #ADMIN
   flutter_launcher_icons: ^0.13.1
