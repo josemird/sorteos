@@ -271,5 +271,6 @@ class _GanadorPageState extends State<GanadorPage> {
       ),
     );
   }
+
 }
 
