@@ -11,11 +11,11 @@ import 'package:confetti/confetti.dart';
 
 
 
-class GanadorPage extends StatefulWidget {
-  final String ganador;
-  final List<String> suplentes;
-  final List<String> top;
-  final bool habilitarTop;
+ class GanadorPage extends StatefulWidget {
+   final String ganador;
+   final List<String> suplentes;
+   final List<String> top;
+   final bool habilitarTop;
 
   const GanadorPage({
     Key? key,
@@ -77,7 +77,7 @@ class _GanadorPageState extends State<GanadorPage> {
       backgroundColor: Colors.grey[900],
       body: Stack(
         children: [
-          // Contenido normal (Texto, Suplentes, etc.)
+
           Center(
             child: mostrarTop && widget.habilitarTop
                 ? Column(
@@ -87,20 +87,26 @@ class _GanadorPageState extends State<GanadorPage> {
                   "Top 3 Participantes",
                   style: const TextStyle(color: Colors.white, fontSize: 23),
                 ),
+
                 Espacio(ESPACIO_MEDIANO),
-                for (int i = 0; i <= currentTopIndex; i++)
+
+                for (int index = 0; index <= currentTopIndex; index++)
                   Column(
                     children: [
                       AnimateText(
-                        widget.top[i],
+                        widget.top[index],
                         style: TextStyle(
                             color: Colors.deepPurpleAccent[100], fontSize: 30),
                         type: AnimateTextType.bottomToTop,
                       ),
+
                       Espacio(ESPACIO_PEQUENO),
+
                     ],
                   ),
+
                 Espacio(ESPACIO_GRANDE),
+
                 if (currentTopIndex == widget.top.length - 1)
                   ButtonCustom(
                     height: 37,
@@ -146,6 +152,7 @@ class _GanadorPageState extends State<GanadorPage> {
                 ),
               ],
             )
+
                 : mostrarGanadores
                 ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +162,9 @@ class _GanadorPageState extends State<GanadorPage> {
                   style: TextStyle(color: Colors.white, fontSize: 23),
                   textAlign: TextAlign.center,
                 ),
+
                 Espacio(ESPACIO_MEDIANO),
+
                 AnimateText(
                   widget.ganador,
                   style: TextStyle(
@@ -167,7 +176,9 @@ class _GanadorPageState extends State<GanadorPage> {
                   speed: AnimateTextSpeed.verySlow,
                   isRepeat: true,
                 ),
+
                 Espacio(ESPACIO_GRANDE),
+
                 if (mostrarSuplentes && widget.suplentes.isNotEmpty)
                   Column(
                     children: [
@@ -176,7 +187,9 @@ class _GanadorPageState extends State<GanadorPage> {
                         style: TextStyle(color: Colors.white, fontSize: 23),
                         textAlign: TextAlign.center,
                       ),
+
                       Espacio(ESPACIO_PEQUENO),
+
                       FadeIn(
                         delay: Duration(seconds: 2),
                         duration: Duration(seconds: 5),
@@ -199,7 +212,9 @@ class _GanadorPageState extends State<GanadorPage> {
                       ),
                     ],
                   ),
+
                 Espacio(ESPACIO_GRANDE),
+
                 ButtonCustom(
                   height: 37,
                   width: 100,
@@ -216,8 +231,8 @@ class _GanadorPageState extends State<GanadorPage> {
                 : Container(),
           ),
 
-          // Confetti sobre el contenido
           Align(
+
             alignment: Alignment.topLeft,
             child: ConfettiWidget(
               confettiController: _confettiController,
@@ -231,9 +246,11 @@ class _GanadorPageState extends State<GanadorPage> {
               gravity: 0.15,
               blastDirection: 1.57,
             ),
+
           ),
 
           Align(
+
             alignment: Alignment.topRight,
             child: ConfettiWidget(
               confettiController: _confettiController,
@@ -246,6 +263,7 @@ class _GanadorPageState extends State<GanadorPage> {
               ],
               gravity: 0.15,
               blastDirection: 1.57,
+
             ),
           ),
 

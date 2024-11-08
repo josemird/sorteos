@@ -19,7 +19,7 @@ void mostrarGanador(BuildContext context, List<String> participantes, int suplen
   /// Seleccionar ganador (número participaciones)
   final listaConPesos = <String>[];
   contador.forEach((nombre, veces) {
-    listaConPesos.addAll(List.generate(veces, (index) => nombre)); // Añadir 'veces' veces el nombre
+    listaConPesos.addAll(List.generate(veces, (index) => nombre));
   });
 
   final randomIndexGanador = Random().nextInt(listaConPesos.length);
@@ -41,7 +41,7 @@ void mostrarGanador(BuildContext context, List<String> participantes, int suplen
     if (!suplentesSeleccionados.contains(suplente)) {
       suplentesGenerados.add(suplente);
       suplentesSeleccionados.add(suplente);
-      listaRestante.removeAt(suplenteIndex); // Eliminarlo para que no se repita
+      listaRestante.removeAt(suplenteIndex);
     }
   }
 

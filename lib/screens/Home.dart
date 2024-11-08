@@ -86,12 +86,11 @@ class _HomePageState extends State<HomePage> {
                   },
                   onCheckSuplentesChanged: (value) {
                     setState(() {
-                      // Si value es true, se pone suplentes a 0, de lo contrario se mantiene el valor actual
-                      checkSuplentes = value ?? false;  // Aseguramos que el valor no sea nulo, si es nulo lo ponemos como falso
+                      checkSuplentes = value ?? false;
                       if (checkSuplentes) {
                         suplentes = 0;
                       } else {
-                        suplentes = 10;  // Asigna el valor por defecto de suplentes
+                        suplentes = 10;
                       }
                     });
                   },
@@ -241,7 +240,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       checkSuplentes = value;
       if (checkSuplentes) {
-        suplentes = 0; // Si está activado, se fija suplentes a 0
+        suplentes = 0;
       }
     });
   }

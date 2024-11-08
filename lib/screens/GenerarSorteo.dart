@@ -63,24 +63,24 @@ class GenerarSorteoPage extends StatelessWidget {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                for (int i = 0; i < participantesConContador.length; i++) ...[
+                                for (int index = 0; index < participantesConContador.length; index++) ...[
                                   RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: participantesConContador[i].split(' x')[0],
+                                          text: participantesConContador[index].split(' x')[0],
                                           style: TextStyle(fontSize: 16, color: COLOR_TEXT),
                                         ),
-                                        if (int.parse(participantesConContador[i].split(' x')[1]) > 1)
+                                        if (int.parse(participantesConContador[index].split(' x')[1]) > 1)
                                           TextSpan(
-                                            text: ' x${participantesConContador[i].split(' x')[1]}',
+                                            text: ' x${participantesConContador[index].split(' x')[1]}',
                                             style: TextStyle(fontSize: 16, color: COLOR_ACCENT),
                                           ),
                                       ],
                                     ),
                                   ),
-                                  if (i < participantesConContador.length - 1)
+                                  if (index < participantesConContador.length - 1)
                                     Container(
                                       height: 1,
                                       color: Colors.grey[300],
