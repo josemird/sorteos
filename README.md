@@ -4,13 +4,20 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Plataforma de Sorteos Interactivos
 
-A few resources to get you started if this is your first Flutter project:
+SorteaYa es una aplicación web innovadora desarrollada con Flutter, diseñada para simplificar y dinamizar la creación y gestión de sorteos en línea. Con una interfaz intuitiva y funcionalidades robustas, SorteaYa permite a usuarios y organizaciones organizar sorteos atractivos y transparentes.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Características principales
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* **Creación fácil de sorteos:** Define rápidamente los detalles del sorteo, como premios, fechas y reglas.
+  
+* **Gestión de participantes:** Registra y gestiona a los participantes de manera eficiente.
+  
+* **Sorteos aleatorios:** Genera ganadores de forma justa y transparente mediante algoritmos aleatorios.
+
+* **Interfaz de usuario moderna:** Desarrollado con Flutter, ofrece una experiencia visual atractiva y fluida.
+
+## Tecnologías utilizadas
+
+* **Full Stack:** Flutter (web).
